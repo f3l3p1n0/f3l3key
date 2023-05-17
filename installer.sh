@@ -15,7 +15,7 @@ function install_shc {
 
 function tarea_cron {
     sudo crontab -e
-    echo -e "$(crontab -l)\n* * * * * bash ~/Descargas/tester.sh" | crontab -
+    echo -e "$(crontab -l)\n* * * * * bash ~/Descargas/f3l3key/tester.sh" | crontab -
     sudo service cron start
 }
 
